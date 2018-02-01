@@ -5,5 +5,15 @@ jobs:
        - image: hashicorp/terraform:0.11.3
      steps:
        - checkout
-       - run: terraform init
-       - run: terraform validate
+       - run:
+           name: Install tflint
+           command: |
+              wget -O /tmp/tflint.zip https://github.com/wata727/tflint/releases/tag/v0.5.4
+              unzip /tmp/tflint.zip -d /usr/local/bin
+       - run:
+           name: Check simple example
+           command: |
+              cd example/simple
+              terraform init
+              terraform validate
+              tflint
