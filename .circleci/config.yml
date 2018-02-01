@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  validate:
+  build:
     docker:
       - image: hashicorp/terraform:0.11.3
     steps:
@@ -17,4 +17,8 @@ jobs:
             terraform init
             terraform validate
             tflint
+      - run:
+          name: Plan example
+          command: |
+            cd example
             terraform plan
