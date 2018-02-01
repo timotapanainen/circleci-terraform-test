@@ -17,5 +17,5 @@ jobs:
             terraform init
             terraform validate
             tflint
-            terraform apply -auto-approve
-            terraform destroy -force
+#            terraform apply -auto-approve
+#            terraform destroy -force
