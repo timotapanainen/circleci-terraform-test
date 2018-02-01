@@ -5,34 +5,34 @@ defaults: &defaults
 
 version: 2
 jobs:
-   validate:
-     <<: *defaults
-     steps:
-       - checkout
-       - run:
-           name: Install tflint
-           command: |
-              wget -O /tmp/tflint.zip https://github.com/wata727/tflint/releases/download/v0.5.4/tflint_linux_amd64.zip
-              unzip /tmp/tflint.zip -d /usr/local/bin
-       - run:
-           name: Validate example
-           command: |
-              cd example
-              terraform init
-              terraform validate
-              tflint
-       - persist_to_workspace:
-           root: .
-           paths: .
+  validate:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Install tflint
+          command: |
+            wget -O /tmp/tflint.zip https://github.com/wata727/tflint/releases/download/v0.5.4/tflint_linux_amd64.zip
+            unzip /tmp/tflint.zip -d /usr/local/bin
+      - run:
+          name: Validate example
+          command: |
+            cd example
+            terraform init
+            terraform validate
+            tflint
+      - persist_to_workspace:
+          root: .
+          paths: .
 
-   plan:
-     <<: *defaults
-     steps:
-       - run:
-           name: Plan example
-           command: |
-              cd example
-              terraform plan
+  plan:
+    <<: *defaults
+    steps:
+      - run:
+          name: Plan example
+          command: |
+            cd example
+            terraform plan
 
 workflows:
   version: 2
