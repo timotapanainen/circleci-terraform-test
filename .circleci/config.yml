@@ -1,6 +1,5 @@
 
 defaults: &defaults
-  working_directory: /tmp
   docker:
     - image: hashicorp/terraform:0.11.3
 
@@ -25,6 +24,7 @@ jobs:
        - persist_to_workspace:
            root: .
            paths: .
+
    plan:
      <<: *defaults
      steps:
@@ -33,6 +33,7 @@ jobs:
            command: |
               cd example
               terraform plan
+
 workflows:
   version: 2
   build:
