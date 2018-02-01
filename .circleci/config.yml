@@ -13,7 +13,7 @@ jobs:
        - run:
            name: Check simple example
            command: |
-              cd example/simple
+              cd example
               terraform init
               terraform validate
               tflint
