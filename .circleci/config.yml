@@ -5,5 +5,5 @@ jobs:
        - image: hashicorp/terraform:0.11.3
      steps:
        - checkout
-       - run: echo "hello world"
-       - run: cat README.md
+       - run: terraform init
+       - run: terraform validate
