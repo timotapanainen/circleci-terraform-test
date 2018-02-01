@@ -31,7 +31,6 @@ jobs:
           command: |
             cd example
             terraform plan
-
 workflows:
   version: 2
   build_workflow:
