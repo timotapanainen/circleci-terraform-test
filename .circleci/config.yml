@@ -1,8 +1,13 @@
+
+defaults: &defaults
+  working_directory: /tmp
+  docker:
+    - image: hashicorp/terraform:0.11.3
+
 version: 2
 jobs:
-   build:
-     docker:
-       - image: hashicorp/terraform:0.11.3
+   validate:
+     <<: *defaults
      steps:
        - checkout
        - run:
@@ -11,9 +16,28 @@ jobs:
               wget -O /tmp/tflint.zip https://github.com/wata727/tflint/releases/download/v0.5.4/tflint_linux_amd64.zip
               unzip /tmp/tflint.zip -d /usr/local/bin
        - run:
-           name: Check simple example
+           name: Validate example
            command: |
               cd example
               terraform init
               terraform validate
               tflint
+       - persist_to_workspace:
+           root: .
+           paths: .
+   plan:
+     <<: *defaults
+     steps:
+       - run:
+           name: Plan example
+           command: |
+              cd example
+              terraform plan
+workflows:
+  version: 2
+  build:
+    jobs:
+      - validate
+      - plan
+          requires:
+            - validate
