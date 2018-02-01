@@ -1,12 +1,9 @@
 
-defaults: &defaults
-  docker:
-    - image: hashicorp/terraform:0.11.3
-
 version: 2
 jobs:
   validate:
-    <<: *defaults
+    docker:
+      - image: hashicorp/terraform:0.11.3
     steps:
       - checkout
       - run:
@@ -26,7 +23,8 @@ jobs:
           paths: .
 
   plan:
-    <<: *defaults
+    docker:
+      - image: hashicorp/terraform:0.11.3
     steps:
       - run:
           name: Plan example
