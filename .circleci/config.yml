@@ -34,4 +34,6 @@ workflows:
   build_workflow:
     jobs:
       - validate
-      - plan
+      - plan:
+          requires:
+            - validate
